@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "213027420366",
+    "firebase_url": "https://hoc-chat1.firebaseio.com",
+    "project_id": "hoc-chat1",
+    "storage_bucket": "hoc-chat1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:213027420366:android:46bb9d304d605479",
+        "android_client_info": {
+          "package_name": "com.hoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "213027420366-d47st98dffo09nksv6jg44qdtmd936kl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hoc",
+            "certificate_hash": "d224fc119258bd04f788789249d819753c148e2b"
+          }
+        },
+        {
+          "client_id": "213027420366-4jls47maph33tv5pu7a220dn7ir30hl4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADKKwFwX70W7vQG7aI6UJ6Xxcmt8RrW7s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "213027420366-4jls47maph33tv5pu7a220dn7ir30hl4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
