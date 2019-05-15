@@ -19,6 +19,7 @@ import Loading from './Loading';
 import Login from './Login';
 import ChatRooms from './ChatRooms';
 
+//Setting up a SwitchNavigator to handle the navigation in the app, easily scaleable if more screens are needed
 const rootSwitch = createSwitchNavigator(
   {
   Loading: {screen: Loading},
