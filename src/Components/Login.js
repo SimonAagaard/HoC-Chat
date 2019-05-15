@@ -5,8 +5,8 @@ import FBLoginButton from './FBLoginButton'
 class Login extends Component {
     render() {
         return (
-            <View style={styles.container}>
-            <Text style={styles.label}>Velkommen til login skærmen!</Text>
+            <View>
+            <Text>Velkommen til login skærmen!</Text>
               <FBLoginButton />
            
           
