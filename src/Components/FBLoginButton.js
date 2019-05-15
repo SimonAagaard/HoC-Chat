@@ -1,25 +1,30 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { LoginButton } from 'react-native-fbsdk';
+import { LoginButton, AccessToken } from 'react-native-fbsdk';
 
+
+//Component for the facebook loginbutton used at the loginscreen
 export default class FBLoginButton extends Component {
   render() {
     return (
       <View>
         <LoginButton
-          publishPermissions={["email"]}
           onLoginFinished={
             (error, result) => {
               if (error) {
-                alert("Login failed with error: " + error.message);
+                console.log("Der opstod følgende fejl ved login: " + result.error);
               } else if (result.isCancelled) {
-                alert("Login was cancelled");
+                console.log("Login blev afbrudt");
               } else {
-                alert("Login was successful with permissions: " + result.grantedPermissions)
+                AccessToken.getCurrentAccessToken().then(
+                  (data) => {
+                    console.log(data.accessToken.toString())
+                  }
+                )
               }
             }
           }
-          onLogoutFinished={() => alert("User logged out")}/>
+          onLogoutFinished={() => console.log("logout.")}/>
       </View>
     );
   }
