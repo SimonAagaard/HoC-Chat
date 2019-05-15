@@ -10,6 +10,7 @@ import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import FBSDK, {LoginManager} from 'react-native-fbsdk';
 import FBLoginButton from './FBLoginButton';
+import SplashScreen from 'react-native-splash-screen';
 
 
 const instructions = Platform.select({
@@ -22,6 +23,10 @@ const instructions = Platform.select({
 
 export default class App extends Component{
  
+  componentDidMount() {
+    SplashScreen.hide();
+  }
+  
   fbAuth() {
     LoginManager.logInWithReadPermissions(['public_profile']).then(function(result) {
       if (result.isCancelled) {
