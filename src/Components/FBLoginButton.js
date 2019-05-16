@@ -3,11 +3,12 @@ import { View } from 'react-native';
 import { LoginButton, AccessToken } from 'react-native-fbsdk';
 
 
-//Component for the facebook loginbutton used at Login.js
+//Component for the facebook loginbutton i might use at Login.js
 export default class FBLoginButton extends Component {
   render() {
     return (
       <View>
+
         <LoginButton
           onLoginFinished={
             (error, result) => {

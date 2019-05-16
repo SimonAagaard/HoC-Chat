@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">HoC</string>
     <string name="facebook_app_id">438396346919105</string>
+     <string name="fb_login_protocol_scheme">438396346919105</string>
 </resources>

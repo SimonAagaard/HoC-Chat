@@ -4,7 +4,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {StyleSheet, ActivityIndicator, Text, View} from 'react-native';
 
 //Component responsible for taking the user to the correct screen upon loading the app and proceeding from the splash screen
-class Loading extends Component {
+export default class Loading extends React.Component {
    
     componentDidMount() {
     SplashScreen.hide();
@@ -20,5 +20,3 @@ class Loading extends Component {
         );
     }
 }
-
-export default Loading;

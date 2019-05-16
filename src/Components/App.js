@@ -30,7 +30,7 @@ const rootSwitch = createSwitchNavigator(
   initialRouteName: 'Loading'
 }
 )
-const App =createAppContainer(rootSwitch)
+const App = createAppContainer(rootSwitch)
 
 
 export default App;

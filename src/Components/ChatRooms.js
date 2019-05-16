@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import {Platform, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
+
 
 
 class ChatRooms extends Component {
+  
     render() {
         return (
-            <div>
+            <View>
                 <Text>Her er dine chatrooms glhf</Text>
-            </div>
+                </View>
+            
         );
     }
 }

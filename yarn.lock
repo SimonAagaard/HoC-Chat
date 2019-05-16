@@ -3094,6 +3094,11 @@ isurl@^1.0.0-alpha5:
     has-to-string-tag-x "^1.2.0"
     is-object "^1.0.1"
 
+itypeof@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/itypeof/-/itypeof-1.1.2.tgz#6fb22639dc78a414f594b3d553a5f2c2488fd022"
+  integrity sha1-b7ImOdx4pBT1lLPVU6XywkiP0CI=
+
 jest-changed-files@^24.8.0:
   version "24.8.0"
   resolved "https://registry.yarnpkg.com/jest-changed-files/-/jest-changed-files-24.8.0.tgz#7e7eb21cf687587a85e50f3d249d1327e15b157b"
@@ -5059,6 +5064,13 @@ react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
+
+react-native-facebook-login@^1.6.1:
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/react-native-facebook-login/-/react-native-facebook-login-1.6.1.tgz#c1c10ddccab8eb99a5c5432ea7e6ebdd2ab2319e"
+  integrity sha512-1jRIxUy9FLEPXA/czhhhL0nOgaT/cq7s9STUXUaNfTq23j5wOiC3LrvBSRGXSqQjisnmxwr1/vxAMVNy7oKm+Q==
+  dependencies:
+    itypeof "^1.1.2"
 
 react-native-fbsdk@^0.8.0:
   version "0.8.0"
