@@ -3,13 +3,6 @@ import {StyleSheet, Text, View, Image, Button} from 'react-native';
 import FBLoginButton from './FBLoginButton';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import firebase from 'react-native-firebase'
-import {FbLogin} from './FbLogin'
-
-var config = {
-    apiKey: 'AIzaSyDqLX1Pm550L-h85ysiXkEtpaBOB529WI4',
-    authDomain: 'hoc-chat1.firebaseapp.com/',
-    databaseURL: 'https://hoc-chat1.firebaseio.com/'
-  }
 
 export default class Login extends Component {
 
