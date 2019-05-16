@@ -141,6 +141,8 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-facebook-login')
+    implementation project(':react-native-vector-icons')
     implementation project(':react-native-gesture-handler')
     implementation project(':react-native-firebase')
     implementation project(':react-native-splash-screen')
