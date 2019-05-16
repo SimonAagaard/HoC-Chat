@@ -16,8 +16,8 @@ import {createSwitchNavigator, createAppContainer} from 'react-navigation';
 
 //Import screens for navigation
 import Loading from './Loading';
-import Login from './Login';
-import ChatRooms from './ChatRooms';
+import Login from '../Views/Login';
+import ChatRooms from '../Views/ChatRooms';
 
 //Setting up a SwitchNavigator to handle the navigation in the app, easily scaleable if more screens are needed
 const rootSwitch = createSwitchNavigator(

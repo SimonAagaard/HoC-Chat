@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {StyleSheet, Text, View, Image, Button} from 'react-native';
-import FBLoginButton from './FBLoginButton';
 import { AccessToken, LoginManager } from 'react-native-fbsdk';
 import firebase from 'react-native-firebase'
+// import FBLoginButton from './FBLoginButton';
+
 
 export default class Login extends Component {
 

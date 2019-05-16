@@ -15,7 +15,7 @@ class ChatRooms extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.Container}>
                 <Text>Her er dine chatrooms glhf</Text>
                
             <Button
@@ -27,5 +27,14 @@ class ChatRooms extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    Container: {
+        flex:1,
+        alignItems: 'center',
+        backgroundColor: '#ffffff'
+        
+    },
+})
 
 export default ChatRooms;
