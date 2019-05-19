@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button, FlatList, StatusBar, TextInput} from 'react-native';
+import {Platform, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button, FlatList, StatusBar, TextInput, console} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import firebaseApp from '../Components/firebaseConfig';
-import DevChat from './DevChat';
+import Chat from './Chat';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import Login from './Login';
+
 
 
 //View to see the available chat rooms
@@ -36,6 +38,12 @@ class ChatRooms extends Component {
     });
   }
 
+  handleLogout = () => {
+    firebaseApp.auth().signOut()
+    .then(() => this.props.navigation.navigate('Login'))
+    .catch(error => this.setState({ errorMessage: error.message }))
+  }
+
   //Checks if input field is blank, else it pushes the input to create a newroom with that name. 
   addRoom() {
     if (this.state.newRoom === '') {
@@ -47,7 +55,7 @@ class ChatRooms extends Component {
 
   //Navigation to the correct chat room based on which room is selected in the flatlist
   openRoom(room) {
-    this.props.navigation.navigate('DevChat', {roomKey: room.key, roomName: room.name});
+    this.props.navigation.navigate('Chat', {roomKey: room.key, roomName: room.name});
   }
     
 
@@ -70,7 +78,13 @@ class ChatRooms extends Component {
         return (
           <View style={styles.roomsContainer}>
           <StatusBar barStyle="light-content"/>
-          <Text style={styles.roomsHeader}>Rooms</Text>
+          <View style={styles.roomsHeader}>
+          <Text style={styles.roomsHeaderText}>Rooms</Text>
+          <TouchableHighlight
+          onPress={() => this.handleLogout()}>
+          <Icon name='ios-log-out' color='#d7734a' size={24} marginLeft={200}/>
+          </TouchableHighlight>
+          </View>
           
           {/* Elements to add new rooms directly in the app */}
 
@@ -111,13 +125,17 @@ const styles = StyleSheet.create({
   },
 
   roomsHeader: {
+    color: '#d7734a',
+    flexDirection: 'row', 
+    alignItems: 'center',
+    marginBottom: 40,
+    marginLeft: 16
+   },
+
+  roomsHeaderText: {
    color: '#d7734a',
    fontSize: 28,
-   top: 20,
    fontWeight: 'bold',
-   alignItems: 'center',
-   marginBottom: 40,
-   marginLeft: 16
   },
 
   roomsListContainer: {
@@ -192,15 +210,16 @@ export default createMaterialBottomTabNavigator({
       )
     }
   },
-    DevChat: {screen:DevChat,
+    Chat: {screen:Chat,
       navigationOptions: {
         labeled: false,
         barStyle:{backgroundColor:'#6998ad'},
         tabBarIcon: (
           <Icon name='ios-chatboxes' color='#d7734a' size={24}/>
         )
-      }},
+      }
+    },
   },{
-    order:['ChatRooms', 'DevChat'],
+    order:['ChatRooms', 'Chat'],
     barStyle: {backgroundColor:'#d8a55a'}
   })

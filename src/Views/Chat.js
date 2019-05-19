@@ -3,7 +3,7 @@ import {StyleSheet, Text, View, TouchableOpacity, Button} from 'react-native';
 import firebaseApp from 'react-native-firebase'
 
 
-class DevChat extends Component {
+class Chat extends Component {
     handleLogout = () => {
         firebaseApp.auth().signOut()
         .then(() => this.props.navigation.navigate('Login'))
@@ -32,4 +32,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default DevChat;
+export default Chat;
