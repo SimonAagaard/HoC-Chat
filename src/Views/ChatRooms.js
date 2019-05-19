@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View, TouchableHighlight, Button, FlatList, StatusBar, TextInput} from 'react-native';
+import {Platform, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button, FlatList, StatusBar, TextInput} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import firebaseApp from '../Components/firebaseConfig';
 import DevChat from './DevChat';
@@ -44,16 +44,24 @@ class ChatRooms extends Component {
     this.roomsRef.push({ name: this.state.newRoom });
     this.setState({ newRoom: '' });
   }
+
+  //Navigation to the correct chat room based on which room is selected in the flatlist
+  openRoom(room) {
+    this.props.navigation.navigate('DevChat', {roomKey: room.key, roomName: room.name});
+  }
     
 
 //Used by the flatlist to format the array of data received
       renderRow(item) {
         return (
-          <TouchableHighlight style={styles.roomLi}
+          <TouchableOpacity style={styles.roomLi}
           underlayColor="#fff"
+          onPress={() => this.openRoom(item)}
           >
-            <Text style={styles.roomLiText}>{item.name}</Text>
-          </TouchableHighlight>
+              <Icon name='ios-people' style={styles.roomLiIconL}/>
+            <Text style={styles.roomLiText}>{item.name}</Text> 
+            <Icon name='ios-arrow-forward' style={styles.roomLiIconR}/>
+          </TouchableOpacity>
         )
       }
     
@@ -62,8 +70,11 @@ class ChatRooms extends Component {
         return (
           <View style={styles.roomsContainer}>
           <StatusBar barStyle="light-content"/>
-          <Text style={styles.roomsHeader}>House of Code</Text>
-          <View style={styles.roomsInputContainer}>
+          <Text style={styles.roomsHeader}>Rooms</Text>
+          
+          {/* Elements to add new rooms directly in the app */}
+
+          {/* <View style={styles.roomsInputContainer}>
             <TextInput
               style={styles.roomsInput}
               placeholder={"New Room Name"}
@@ -76,7 +87,7 @@ class ChatRooms extends Component {
             >
               <Text style={styles.roomsNewButtonText}>Create</Text>
             </TouchableHighlight>
-          </View>
+          </View> */}
            
            <View style={styles.roomsListContainer}>
          
@@ -92,67 +103,83 @@ class ChatRooms extends Component {
 }
 
 const styles = StyleSheet.create({
-    Container: {
-        flex:1,
-        alignItems: 'center',
-        backgroundColor: '#ffffff'
-    },
-    roomLi: {
-      flex: 1,
-      backgroundColor: '#fff',
-      borderBottomColor: '#eee',
-      borderColor: 'transparent',
-      borderWidth: 1,
-      paddingLeft: 16,
-      paddingTop: 14,
-      paddingBottom: 16,
-    },
-    roomLiText: {
-      color: '#1E90FF',
-    fontSize: 22,
-    },
-    roomsNewButton: {
-      alignItems: 'center',
-    marginRight: 20
-    },
-    roomsContainer: {
-      flex: 1,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    backgroundColor: '#1E90FF',
-    },
-    roomsHeader: {
-      color: '#fff',
-    fontSize: 28,
-    top: 20
-    },
-    roomsInputContainer: {
-    alignItems: 'center',
+  roomsContainer: {
+   flex: 1,
+   alignItems: 'flex-start',
+   justifyContent: 'flex-start',
+   backgroundColor: '#eee',
+  },
+
+  roomsHeader: {
+   color: '#d7734a',
+   fontSize: 28,
+   top: 20,
+   fontWeight: 'bold',
+   alignItems: 'center',
+   marginBottom: 40,
+   marginLeft: 16
+  },
+
+  roomsListContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
     flexDirection: 'row',
-    backgroundColor: '#fff',
-    borderBottomColor: '#f9f9f9',
-    borderBottomWidth: 2,
-    top: 30
-    },
-    roomsInput: {
-      flex: 1,
-      height: 40,
-      textAlign: 'center',
-      fontSize: 18,
-      color: '#1E90FF',
-      borderColor: '#f9f9f9',
-      borderWidth: 2,
-      borderRadius: 4,
-      margin: 10
-    },
-    roomsNewButton: {
-      alignItems: 'center',
-    marginRight: 20
-    },
-    roomsNewButtonText: {
-      color: '#1E90FF',
-    fontSize: 18
-    }
+    marginTop: 30,
+    backgroundColor: '#fff'
+  },
+
+  roomLi: {
+    flex: 1,
+    backgroundColor: '#eee',
+    borderColor: '#fff',
+    borderWidth: 1,
+    paddingTop: 14,
+    paddingBottom: 16,
+    flexDirection:'row'
+  },
+  
+  roomLiIconL: {
+   flex:1,
+   color: '#d7734a',
+   fontSize: 25,
+   textAlign: 'left',
+  },
+
+  roomLiText: {
+   flex:1,
+   color: '#d7734a',
+   fontSize: 20,
+  },
+
+  roomLiIconR: {
+   flex:1,
+   color: '#d7734a',
+   fontSize: 20,
+   textAlign: 'right',
+   marginRight: 20
+  },
+   
+  //Styling for the "add Room" functionality
+
+//   roomsInputContainer: {
+//     alignItems: 'center',
+//     flexDirection: 'row',
+//     backgroundColor: '#fff',
+//     borderBottomColor: '#f9f9f9',
+//     borderBottomWidth: 2,
+//     top: 30
+//     },
+
+//  roomsNewButton: {
+//   alignItems: 'center',
+//   marginRight: 20
+//   },
+
+//  roomsNewButtonText: {
+//     color: '#1E90FF',
+//     fontSize: 18
+//     }
 })
 
 //BottomTab navigation bar
@@ -168,12 +195,12 @@ export default createMaterialBottomTabNavigator({
     DevChat: {screen:DevChat,
       navigationOptions: {
         labeled: false,
-        barStyle:{backgroundColor:'#d8a55a'},
+        barStyle:{backgroundColor:'#6998ad'},
         tabBarIcon: (
           <Icon name='ios-chatboxes' color='#d7734a' size={24}/>
         )
       }},
   },{
     order:['ChatRooms', 'DevChat'],
-    barStyle: {backgroundColor:'#6998ad'}
+    barStyle: {backgroundColor:'#d8a55a'}
   })
