@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import {Platform, StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, Button, FlatList, StatusBar, TextInput, console} from 'react-native';
-import SplashScreen from 'react-native-splash-screen';
+import {StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, FlatList, StatusBar} from 'react-native';
 import firebaseApp from '../Components/firebaseConfig';
 import Chat from './Chat';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import Login from './Login';
 
 
 
@@ -44,26 +42,28 @@ class ChatRooms extends Component {
     .catch(error => this.setState({ errorMessage: error.message }))
   }
 
-  //Checks if input field is blank, else it pushes the input to create a newroom with that name. 
-  addRoom() {
-    if (this.state.newRoom === '') {
-      return;
+    //Navigation to the correct chat room based on which room is selected in the flatlist
+    openRoom(room) {
+      this.props.navigation.navigate('Chat', {roomKey: room.key, roomName: room.name});
     }
-    this.roomsRef.push({ name: this.state.newRoom });
-    this.setState({ newRoom: '' });
-  }
 
-  //Navigation to the correct chat room based on which room is selected in the flatlist
-  openRoom(room) {
-    this.props.navigation.navigate('Chat', {roomKey: room.key, roomName: room.name});
-  }
+  //Checks if input field is blank, else it pushes the input to create a newroom with that name. 
+  // addRoom() {
+  //   if (this.state.newRoom === '') {
+  //     return;
+  //   }
+  //   this.roomsRef.push({ name: this.state.newRoom });
+  //   this.setState({ newRoom: '' });
+  // }
+
+
     
 
 //Used by the flatlist to format the array of data received
       renderRow(item) {
         return (
           <TouchableOpacity style={styles.roomLi}
-          underlayColor="#fff"
+          underlayColor="#f8f8ff"
           onPress={() => this.openRoom(item)}
           >
               <Icon name='ios-people' style={styles.roomLiIconL}/>
@@ -81,12 +81,13 @@ class ChatRooms extends Component {
           <View style={styles.roomsHeader}>
           <Text style={styles.roomsHeaderText}>Rooms</Text>
           <TouchableHighlight
-          onPress={() => this.handleLogout()}>
-          <Icon name='ios-log-out' color='#d7734a' size={24} marginLeft={200}/>
+          onPress={() => this.handleLogout()}
+          style={styles.roomsHeaderIcon}>
+          <Icon name='ios-log-out' color='#d7734a' size={40} />
           </TouchableHighlight>
           </View>
           
-          {/* Elements to add new rooms directly in the app */}
+          {/* Section to add new rooms directly in the app */}
 
           {/* <View style={styles.roomsInputContainer}>
             <TextInput
@@ -119,23 +120,26 @@ class ChatRooms extends Component {
 const styles = StyleSheet.create({
   roomsContainer: {
    flex: 1,
-   alignItems: 'flex-start',
-   justifyContent: 'flex-start',
    backgroundColor: '#eee',
   },
 
   roomsHeader: {
     color: '#d7734a',
     flexDirection: 'row', 
-    alignItems: 'center',
     marginBottom: 40,
-    marginLeft: 16
+    marginLeft: 16,
    },
 
   roomsHeaderText: {
    color: '#d7734a',
    fontSize: 28,
    fontWeight: 'bold',
+  },
+
+  roomsHeaderIcon:{
+   marginTop: 5,
+   marginLeft: 210,
+    
   },
 
   roomsListContainer: {
@@ -213,7 +217,6 @@ export default createMaterialBottomTabNavigator({
     Chat: {screen:Chat,
       navigationOptions: {
         labeled: false,
-        barStyle:{backgroundColor:'#6998ad'},
         tabBarIcon: (
           <Icon name='ios-chatboxes' color='#d7734a' size={24}/>
         )
@@ -221,5 +224,5 @@ export default createMaterialBottomTabNavigator({
     },
   },{
     order:['ChatRooms', 'Chat'],
-    barStyle: {backgroundColor:'#d8a55a'}
+    barStyle: {backgroundColor:'#ffffff'}
   })
