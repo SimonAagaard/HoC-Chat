@@ -8,14 +8,14 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 
 //View to see the available chat rooms
-class ChatRooms extends Component {
+export default class ChatRooms extends Component {
   constructor(props) {
     super(props);
     var firebaseDB = firebaseApp.database();
     this.roomsRef = firebaseDB.ref('rooms');
     this.state = {
       rooms: [],
-      newRoom: ''
+      // newRoom: ''
     }
   }
 
@@ -60,14 +60,14 @@ class ChatRooms extends Component {
     
 
 //Used by the flatlist to format the array of data received
-      renderRow(item) {
+      renderRow(room) {
         return (
           <TouchableOpacity style={styles.roomLi}
           underlayColor="#f8f8ff"
-          onPress={() => this.openRoom(item)}
+          onPress={() => this.openRoom(room)}
           >
               <Icon name='ios-people' style={styles.roomLiIconL}/>
-            <Text style={styles.roomLiText}>{item.name}</Text> 
+            <Text style={styles.roomLiText}>{room.name}</Text> 
             <Icon name='ios-arrow-forward' style={styles.roomLiIconR}/>
           </TouchableOpacity>
         )
@@ -205,24 +205,24 @@ const styles = StyleSheet.create({
 })
 
 //BottomTab navigation bar
-export default createMaterialBottomTabNavigator({
-    ChatRooms: {screen:ChatRooms, 
-    navigationOptions: {
-      labeled: false,
-      tabBarIcon: (
-        <Icon name='ios-chatbubbles' color='#d7734a' size={24}/>
-      )
-    }
-  },
-    Chat: {screen:Chat,
-      navigationOptions: {
-        labeled: false,
-        tabBarIcon: (
-          <Icon name='ios-chatboxes' color='#d7734a' size={24}/>
-        )
-      }
-    },
-  },{
-    order:['ChatRooms', 'Chat'],
-    barStyle: {backgroundColor:'#ffffff'}
-  })
+// export default createMaterialBottomTabNavigator({
+//     ChatRooms: {screen:ChatRooms, 
+//     navigationOptions: {
+//       labeled: false,
+//       tabBarIcon: (
+//         <Icon name='ios-chatbubbles' color='#d7734a' size={24}/>
+//       )
+//     }
+//   },
+//     Chat: {screen:Chat,
+//       navigationOptions: {
+//         labeled: false,
+//         tabBarIcon: (
+//           <Icon name='ios-chatboxes' color='#d7734a' size={24}/>
+//         )
+//       }
+//     },
+//   },{
+//     order:['ChatRooms', 'Chat'],
+//     barStyle: {backgroundColor:'#ffffff'}
+//   })

@@ -4,14 +4,23 @@ import { GiftedChat } from 'react-native-gifted-chat';
 import firebaseApp from '../Components/firebaseConfig';
 
 class Chat extends Component {
-  
-
-//   static navigationOptions = ({ navigation }) => ({
-//     title: navigation.state.params.roomName,
-//     headerStyle: styles.messagesHeader,
-//     headerTitleStyle: styles.messagesTitle,
-//     headerBackTitleStyle: styles.messagesBackTitle
-//   });
+  //Header for the chat screen, featuring a "go back" arrow along with the name of the room currently open
+  static navigationOptions = ({ navigation }) => {
+    return{
+    title: navigation.state.params.roomName,
+    headerStyle: {
+      backgroundColor: '#d7734a'
+    },
+    headerTitleStyle: {
+      color: '#ffffff',
+        fontSize: 28,
+        fontWeight: '400'
+    },
+    headerBackTitleStyle: {
+      color: '#d7734a'
+    }
+  }
+};
 
   constructor(props) {
     super(props);
@@ -29,6 +38,7 @@ class Chat extends Component {
     this.listenForMessages(this.messagesRef);
   }
 
+  //Function being called by componentDidMount, loads messages from the database, and loads the messages in the correct order.
   listenForMessages(messagesRef) {
     messagesRef.on('value', (dataSnapshot) => {
       var messagesFB = [];
@@ -37,6 +47,7 @@ class Chat extends Component {
           _id: child.key,
           text: child.val().text,
           createdAt: child.val().createdAt,
+          room: child.val().room,
           user: {
             _id: child.val().user._id,
             name: child.val().user.name
@@ -47,10 +58,12 @@ class Chat extends Component {
     });
   }
 
+//Function being called by the onSend button, to add a message to the database
   addMessage(messages = []) {
     var message = messages[0]
     this.messagesRef.push({
       text: message.text,
+      room: message.room,
       createdAt: Date.now(),
       user: {
         _id: message.user._id,
@@ -75,18 +88,6 @@ class Chat extends Component {
     );
   }
 }
-const styles = StyleSheet.create({
-    messagesHeader: {
-        backgroundColor: '#1E90FF'
-      },
-      messagesTitle: {
-        color: '#fff',
-        fontSize: 28,
-        fontWeight: '400'
-      },
-      messagesBackTitle: {
-        color: '#fff'
-      }
-    });
+
 
 export default Chat;
