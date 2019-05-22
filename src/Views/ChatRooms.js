@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, FlatList, StatusBar} from 'react-native';
+import {StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, FlatList, StatusBar, Button} from 'react-native';
 import firebaseApp from '../Components/firebaseConfig';
 import Chat from './Chat';
 import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import ImagePicker from 'react-native-image-picker';
 
 
 
@@ -55,8 +56,6 @@ export default class ChatRooms extends Component {
   //   this.roomsRef.push({ name: this.state.newRoom });
   //   this.setState({ newRoom: '' });
   // }
-
-
     
 
 //Used by the flatlist to format the array of data received
@@ -80,11 +79,13 @@ export default class ChatRooms extends Component {
           <StatusBar barStyle="light-content"/>
           <View style={styles.roomsHeader}>
           <Text style={styles.roomsHeaderText}>Rooms</Text>
+          <View style={styles.roomsHeaderIcon}>
           <TouchableHighlight
           onPress={() => this.handleLogout()}
-          style={styles.roomsHeaderIcon}>
+          >
           <Icon name='ios-log-out' color='#d7734a' size={40} />
           </TouchableHighlight>
+          </View>
           </View>
           
           {/* Section to add new rooms directly in the app */}
@@ -138,8 +139,7 @@ const styles = StyleSheet.create({
 
   roomsHeaderIcon:{
    marginTop: 5,
-   marginLeft: 210,
-    
+   marginLeft: '50%', 
   },
 
   roomsListContainer: {

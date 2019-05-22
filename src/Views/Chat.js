@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import {StatusBar, View, StyleSheet} from 'react-native';
+import {StatusBar, View, StyleSheet, Image, Button, TouchableHighlight} from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import firebaseApp from '../Components/firebaseConfig';
+import ImagePicker from 'react-native-image-picker';
+import Icon from 'react-native-vector-icons';
+import propTypes from 'prop-types';
 
 class Chat extends Component {
   //Header for the chat screen, featuring a "go back" arrow along with the name of the room currently open
@@ -13,12 +16,16 @@ class Chat extends Component {
     },
     headerTitleStyle: {
       color: '#ffffff',
-        fontSize: 28,
-        fontWeight: '400'
+        fontSize: 24,
+        fontWeight: '300'
     },
     headerBackTitleStyle: {
       color: '#d7734a'
-    }
+    },
+    // headerRight: (
+    // <Button title='Send billede' onPress={() => this.selectImage} color='#d7734a' />
+      
+    // ),
   }
 };
 
@@ -27,9 +34,10 @@ class Chat extends Component {
     var FirebaseDB = firebaseApp.database();
     var roomKey = this.props.navigation.state.params.roomKey;
     this.messagesRef = FirebaseDB.ref(`messages/${roomKey}`);
+    
     this.state = {
       user: '',
-      messages: []
+      messages: [],
     }
   }
 
@@ -37,6 +45,7 @@ class Chat extends Component {
     this.setState({ user: firebaseApp.auth().currentUser });
     this.listenForMessages(this.messagesRef);
   }
+  
 
   //Function being called by componentDidMount, loads messages from the database, and loads the messages in the correct order.
   listenForMessages(messagesRef) {
@@ -48,6 +57,7 @@ class Chat extends Component {
           text: child.val().text,
           createdAt: child.val().createdAt,
           room: child.val().room,
+          imagePicked: child.val().imagePicked,
           user: {
             _id: child.val().user._id,
             name: child.val().user.name
@@ -57,6 +67,31 @@ class Chat extends Component {
       this.setState({ messages: messagesFB });
     });
   }
+
+
+  //Functionality for sending image, causing trouble, commented out for now
+//   selectImage = (messages=[]) => {
+//   ImagePicker.showImagePicker((response) => {
+//     console.log('Response = ', response);
+  
+//     if (response.didCancel) {
+//       console.log('User cancelled image picker');
+//     } else if (response.error) {
+//       console.log('ImagePicker Error: ', response.error);
+//     } else if (response.customButton) {
+//       console.log('User tapped custom button: ', response.customButton);
+//     } else {
+//       const source = { uri: response.uri };
+  
+//       this.setState({
+//         imagePicked: source,
+//       });
+
+//     }
+//   });
+// }
+        
+  
 
 //Function being called by the onSend button, to add a message to the database
   addMessage(messages = []) {
@@ -68,7 +103,7 @@ class Chat extends Component {
       user: {
         _id: message.user._id,
         name: message.user.name
-      }
+      },
     })
   }
 
@@ -76,6 +111,7 @@ class Chat extends Component {
     return (
       <View style={{flex: 1}}>
         <StatusBar barStyle="light-content"/>
+        <Button title='Send billede' onPress= {this.selectImage} color='#d7734a' />
         <GiftedChat
           messages={this.state.messages}
           onSend={this.addMessage.bind(this)}
