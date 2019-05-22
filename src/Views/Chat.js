@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StatusBar, View, StyleSheet, Image, Button, TouchableHighlight} from 'react-native';
+import { StatusBar, View, StyleSheet, Image, Button, TouchableHighlight } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
 import firebaseApp from '../Components/firebaseConfig';
 import ImagePicker from 'react-native-image-picker';
@@ -9,32 +9,32 @@ import propTypes from 'prop-types';
 class Chat extends Component {
   //Header for the chat screen, featuring a "go back" arrow along with the name of the room currently open
   static navigationOptions = ({ navigation }) => {
-    return{
-    title: navigation.state.params.roomName,
-    headerStyle: {
-      backgroundColor: '#d7734a'
-    },
-    headerTitleStyle: {
-      color: '#ffffff',
+    return {
+      title: navigation.state.params.roomName,
+      headerStyle: {
+        backgroundColor: '#d7734a'
+      },
+      headerTitleStyle: {
+        color: '#ffffff',
         fontSize: 24,
         fontWeight: '300'
-    },
-    headerBackTitleStyle: {
-      color: '#d7734a'
-    },
-    // headerRight: (
-    // <Button title='Send billede' onPress={() => this.selectImage} color='#d7734a' />
-      
-    // ),
-  }
-};
+      },
+      headerBackTitleStyle: {
+        color: '#d7734a'
+      },
+      // headerRight: (
+      // <Button title='Send billede' onPress={() => this.selectImage} color='#d7734a' />
+
+      // ),
+    }
+  };
 
   constructor(props) {
     super(props);
     var FirebaseDB = firebaseApp.database();
     var roomKey = this.props.navigation.state.params.roomKey;
     this.messagesRef = FirebaseDB.ref(`messages/${roomKey}`);
-    
+
     this.state = {
       user: '',
       messages: [],
@@ -45,7 +45,7 @@ class Chat extends Component {
     this.setState({ user: firebaseApp.auth().currentUser });
     this.listenForMessages(this.messagesRef);
   }
-  
+
 
   //Function being called by componentDidMount, loads messages from the database, and loads the messages in the correct order.
   listenForMessages(messagesRef) {
@@ -70,30 +70,30 @@ class Chat extends Component {
 
 
   //Functionality for sending image, causing trouble, commented out for now
-//   selectImage = (messages=[]) => {
-//   ImagePicker.showImagePicker((response) => {
-//     console.log('Response = ', response);
-  
-//     if (response.didCancel) {
-//       console.log('User cancelled image picker');
-//     } else if (response.error) {
-//       console.log('ImagePicker Error: ', response.error);
-//     } else if (response.customButton) {
-//       console.log('User tapped custom button: ', response.customButton);
-//     } else {
-//       const source = { uri: response.uri };
-  
-//       this.setState({
-//         imagePicked: source,
-//       });
+  //   selectImage = (messages=[]) => {
+  //   ImagePicker.showImagePicker((response) => {
+  //     console.log('Response = ', response);
 
-//     }
-//   });
-// }
-        
-  
+  //     if (response.didCancel) {
+  //       console.log('User cancelled image picker');
+  //     } else if (response.error) {
+  //       console.log('ImagePicker Error: ', response.error);
+  //     } else if (response.customButton) {
+  //       console.log('User tapped custom button: ', response.customButton);
+  //     } else {
+  //       const source = { uri: response.uri };
 
-//Function being called by the onSend button, to add a message to the database
+  //       this.setState({
+  //         imagePicked: source,
+  //       });
+
+  //     }
+  //   });
+  // }
+
+
+
+  //Function being called by the onSend button, to add a message to the database
   addMessage(messages = []) {
     var message = messages[0]
     this.messagesRef.push({
@@ -109,9 +109,9 @@ class Chat extends Component {
 
   render() {
     return (
-      <View style={{flex: 1}}>
-        <StatusBar barStyle="light-content"/>
-        <Button title='Send billede' onPress= {this.selectImage} color='#d7734a' />
+      <View style={{ flex: 1 }}>
+        <StatusBar barStyle="light-content" />
+        <Button title='Send billede' onPress={this.selectImage} color='#d7734a' />
         <GiftedChat
           messages={this.state.messages}
           onSend={this.addMessage.bind(this)}

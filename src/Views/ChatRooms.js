@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, FlatList, StatusBar, Button} from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, FlatList, StatusBar, Button } from 'react-native';
 import firebaseApp from '../Components/firebaseConfig';
-import Chat from './Chat';
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import ImagePicker from 'react-native-image-picker';
-
-
 
 //View to see the available chat rooms
 export default class ChatRooms extends Component {
@@ -20,10 +15,12 @@ export default class ChatRooms extends Component {
     }
   }
 
+  //whenever this component mounts, the function "listenForRooms" gets called right away
   componentDidMount() {
     this.listenForRooms(this.roomsRef);
   }
 
+  //Uses the variable "roomsRef" from the constructor to check the realtime databsde for changes and update accordingly
   listenForRooms(roomsRef) {
     roomsRef.on('value', (dataSnapshot) => {
       var roomsFB = [];
@@ -39,14 +36,14 @@ export default class ChatRooms extends Component {
 
   handleLogout = () => {
     firebaseApp.auth().signOut()
-    .then(() => this.props.navigation.navigate('Login'))
-    .catch(error => this.setState({ errorMessage: error.message }))
+      .then(() => this.props.navigation.navigate('Login'))
+      .catch(error => this.setState({ errorMessage: error.message }))
   }
 
-    //Navigation to the correct chat room based on which room is selected in the flatlist
-    openRoom(room) {
-      this.props.navigation.navigate('Chat', {roomKey: room.key, roomName: room.name});
-    }
+  //Navigation to the correct chat room based on which room is selected in the flatlist
+  openRoom(room) {
+    this.props.navigation.navigate('Chat', { roomKey: room.key, roomName: room.name });
+  }
 
   //Checks if input field is blank, else it pushes the input to create a newroom with that name. 
   // addRoom() {
@@ -56,41 +53,39 @@ export default class ChatRooms extends Component {
   //   this.roomsRef.push({ name: this.state.newRoom });
   //   this.setState({ newRoom: '' });
   // }
-    
 
-//Used by the flatlist to format the array of data received
-      renderRow(room) {
-        return (
-          <TouchableOpacity style={styles.roomLi}
-          underlayColor="#f8f8ff"
-          onPress={() => this.openRoom(room)}
-          >
-              <Icon name='ios-people' style={styles.roomLiIconL}/>
-            <Text style={styles.roomLiText}>{room.name}</Text> 
-            <Icon name='ios-arrow-forward' style={styles.roomLiIconR}/>
-          </TouchableOpacity>
-        )
-      }
-    
 
-    render() {
-        return (
-          <View style={styles.roomsContainer}>
-          <StatusBar barStyle="light-content"/>
-          <View style={styles.roomsHeader}>
+  //Used by the flatlist to format the array of data received
+  renderRow(room) {
+    return (
+      <TouchableOpacity style={styles.roomLi}
+        underlayColor="#f8f8ff"
+        onPress={() => this.openRoom(room)}
+      >
+        <Icon name='ios-people' style={styles.roomLiIconL} />
+        <Text style={styles.roomLiText}>{room.name}</Text>
+        <Icon name='ios-arrow-forward' style={styles.roomLiIconR} />
+      </TouchableOpacity>
+    )
+  }
+
+
+  render() {
+    return (
+      <View style={styles.roomsContainer}>
+        <StatusBar barStyle="light-content" />
+        <View style={styles.roomsHeader}>
           <Text style={styles.roomsHeaderText}>Rooms</Text>
           <View style={styles.roomsHeaderIcon}>
-          <TouchableHighlight
-          onPress={() => this.handleLogout()}
-          >
-          <Icon name='ios-log-out' color='#d7734a' size={40} />
-          </TouchableHighlight>
+            <TouchableHighlight onPress={() => this.handleLogout()}>
+              <Icon name='ios-log-out' color='#d7734a' size={40} />
+            </TouchableHighlight>
           </View>
-          </View>
-          
-          {/* Section to add new rooms directly in the app */}
+        </View>
 
-          {/* <View style={styles.roomsInputContainer}>
+        {/* Section to add new rooms directly in the app */}
+
+        {/* <View style={styles.roomsInputContainer}>
             <TextInput
               style={styles.roomsInput}
               placeholder={"New Room Name"}
@@ -104,42 +99,41 @@ export default class ChatRooms extends Component {
               <Text style={styles.roomsNewButtonText}>Create</Text>
             </TouchableHighlight>
           </View> */}
-           
-           <View style={styles.roomsListContainer}>
-         
-            <FlatList
+
+        <View style={styles.roomsListContainer}>
+          <FlatList
             data={this.state.rooms}
-            renderItem={({item}) => (this.renderRow(item)
+            renderItem={({ item }) => (this.renderRow(item)
             )}
-            />
-              </View>
-             </View>
-        );
-    }
+          />
+        </View>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   roomsContainer: {
-   flex: 1,
-   backgroundColor: '#eee',
+    flex: 1,
+    backgroundColor: '#eee',
   },
 
   roomsHeader: {
     color: '#d7734a',
-    flexDirection: 'row', 
+    flexDirection: 'row',
     marginBottom: 40,
     marginLeft: 16,
-   },
-
-  roomsHeaderText: {
-   color: '#d7734a',
-   fontSize: 28,
-   fontWeight: 'bold',
   },
 
-  roomsHeaderIcon:{
-   marginTop: 5,
-   marginLeft: '50%', 
+  roomsHeaderText: {
+    color: '#d7734a',
+    fontSize: 28,
+    fontWeight: 'bold',
+  },
+
+  roomsHeaderIcon: {
+    marginTop: 5,
+    marginLeft: '50%',
   },
 
   roomsListContainer: {
@@ -158,50 +152,50 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingTop: 14,
     paddingBottom: 16,
-    flexDirection:'row'
+    flexDirection: 'row'
   },
-  
+
   roomLiIconL: {
-   flex:1,
-   color: '#d7734a',
-   fontSize: 25,
-   textAlign: 'left',
+    flex: 1,
+    color: '#d7734a',
+    fontSize: 25,
+    textAlign: 'left',
   },
 
   roomLiText: {
-   flex:1,
-   color: '#d7734a',
-   fontSize: 20,
+    flex: 1,
+    color: '#d7734a',
+    fontSize: 20,
   },
 
   roomLiIconR: {
-   flex:1,
-   color: '#d7734a',
-   fontSize: 20,
-   textAlign: 'right',
-   marginRight: 20
+    flex: 1,
+    color: '#d7734a',
+    fontSize: 20,
+    textAlign: 'right',
+    marginRight: 20
   },
-   
+
   //Styling for the "add Room" functionality
 
-//   roomsInputContainer: {
-//     alignItems: 'center',
-//     flexDirection: 'row',
-//     backgroundColor: '#fff',
-//     borderBottomColor: '#f9f9f9',
-//     borderBottomWidth: 2,
-//     top: 30
-//     },
+  //   roomsInputContainer: {
+  //     alignItems: 'center',
+  //     flexDirection: 'row',
+  //     backgroundColor: '#fff',
+  //     borderBottomColor: '#f9f9f9',
+  //     borderBottomWidth: 2,
+  //     top: 30
+  //     },
 
-//  roomsNewButton: {
-//   alignItems: 'center',
-//   marginRight: 20
-//   },
+  //  roomsNewButton: {
+  //   alignItems: 'center',
+  //   marginRight: 20
+  //   },
 
-//  roomsNewButtonText: {
-//     color: '#1E90FF',
-//     fontSize: 18
-//     }
+  //  roomsNewButtonText: {
+  //     color: '#1E90FF',
+  //     fontSize: 18
+  //     }
 })
 
 //BottomTab navigation bar
