@@ -141,6 +141,9 @@ android {
 }
 
 dependencies {
+    implementation (project(':react-native-google-signin')) {
+    exclude group: "com.google.android.gms" // very important
+}
     implementation project(':react-native-image-picker')
     implementation project(':react-native-facebook-login')
     implementation project(':react-native-vector-icons')
@@ -154,6 +157,7 @@ dependencies {
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
     implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.google.firebase:firebase-auth:17.0.0'
+    implementation 'com.google.android.gms:play-services-auth:16.0.0'
     implementation 'com.google.firebase:firebase-database:17.0.0'
 }
 

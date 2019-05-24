@@ -15,7 +15,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "213027420366-d47st98dffo09nksv6jg44qdtmd936kl.apps.googleusercontent.com",
+          "client_id": "213027420366-prcnlkcm5la35mrdcuc54rjanp5o2u74.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.hoc",
@@ -23,7 +23,7 @@
           }
         },
         {
-          "client_id": "213027420366-4jls47maph33tv5pu7a220dn7ir30hl4.apps.googleusercontent.com",
+          "client_id": "213027420366-prcnlkcm5la35mrdcuc54rjanp5o2u74.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -36,7 +36,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "213027420366-4jls47maph33tv5pu7a220dn7ir30hl4.apps.googleusercontent.com",
+              "client_id": "213027420366-prcnlkcm5la35mrdcuc54rjanp5o2u74.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
