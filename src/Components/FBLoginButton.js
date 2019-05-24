@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { LoginButton, AccessToken } from 'react-native-fbsdk';
+import firebase from 'react-native-firebase'
 
 
 //Component for the facebook loginbutton i might use at Login.js
@@ -11,21 +12,28 @@ export default class FBLoginButton extends Component {
 
         <LoginButton
           onLoginFinished={
-            (error, result) => {
-              if (error) {
-                console.log("Der opstod følgende fejl ved login: " + result.error);
-              } else if (result.isCancelled) {
-                console.log("Login blev afbrudt");
-              } else {
-                AccessToken.getCurrentAccessToken().then(
-                  (data) => {
-                    console.log(data.accessToken.toString())
-                  }
-                )
-              }
-            }
-          }
-          onLogoutFinished={() => console.log("logout.")}/>
+            LoginManager.logInWithReadPermissions(['public_profile', 'email'])
+              .then(function (result) {
+                if (result.isCancelled) {
+                  alert('Login blev afbrudt');
+                }
+                else {
+                  AccessToken.getCurrentAccessToken().then((accesTokenData) => {
+                    const credential = firebase.auth.FacebookAuthProvider.credential(accesTokenData.accessToken)
+                    firebase.auth().signInWithCredential(credential).then((result) => {
+                      //Promise was succesful
+
+                    }, (error) => {
+                      //promise was rejected
+                      console.log(error)
+                    })
+                  },
+                    (error) => {
+                      console.log('En fejl opstod' + error)
+                    })
+                }
+              })
+          }></LoginButton>
       </View>
     );
   }

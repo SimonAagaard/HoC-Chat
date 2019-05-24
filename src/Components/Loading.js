@@ -9,7 +9,7 @@ export default class Loading extends React.Component {
     componentDidMount() {
         SplashScreen.hide();
         //Specific line for the purpose of this component
-        firebase.auth().onAuthStateChanged(user => {
+        firebase.auth().onIdTokenChanged(user => {
             this.props.navigation.navigate(user ? 'ChatRooms' : 'Login')
         })
     }

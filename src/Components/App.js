@@ -7,7 +7,7 @@
  */
 
 
-import {createAppContainer, createStackNavigator } from 'react-navigation';
+import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 //Import screens for navigation
 import Loading from './Loading';
