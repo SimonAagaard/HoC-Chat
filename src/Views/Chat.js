@@ -111,7 +111,7 @@ class Chat extends Component {
     return (
       <View style={{ flex: 1 }}>
         <StatusBar barStyle="light-content" />
-        <Button title='Send billede' onPress={this.selectImage} color='#d7734a' />
+        <Button title='Send picture' onPress={this.selectImage} color='#d7734a' />
         <GiftedChat
           messages={this.state.messages}
           onSend={this.addMessage.bind(this)}

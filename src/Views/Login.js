@@ -75,8 +75,8 @@ export default class Login extends Component {
                     style={styles.image}
                     source={require('../Components/images/Logo.png')} />
                 <View style={styles.welcome}>
-                    <Text style={{ color: '#d8a55a', fontSize: 24 }}>Velkommen </Text>
-                    <Text style={{ color: '#aa81ac', fontSize: 24 }}>til </Text>
+                    <Text style={{ color: '#d8a55a', fontSize: 24 }}>Welcome </Text>
+                    <Text style={{ color: '#aa81ac', fontSize: 24 }}>to </Text>
                     <Text style={{ color: '#6998ad', fontSize: 24, marginBottom: '5%' }}>HoC-Chat!</Text>
                     <Text style={{ color: '#d7734a', fontSize: 24 }}> &#123; </Text>
 
@@ -87,11 +87,11 @@ export default class Login extends Component {
                 </LoginButton> */}
                 <Button
                     onPress={this.fbAuth}
-                    title="Log ind med facebook"
+                    title="Sign in with Facebook"
                     color="#39569c"
                 />
                 <GoogleSigninButton
-                    style={{ width: 192, height: 48 }}
+                    style={{ width: 192, height: 48, marginTop: '5%' }}
                     size={GoogleSigninButton.Size.Wide}
                     color={GoogleSigninButton.Color.Dark}
                     onPress={this.googleAuth}
