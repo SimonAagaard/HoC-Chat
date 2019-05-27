@@ -10,6 +10,7 @@ import firebaseApp from '../Components/firebaseConfig';
 export default class Login extends Component {
 
     componentDidMount() {
+        //Need to be called here when the component mounts, for the google signin to work
         GoogleSignin.configure({
             scopes: [
                 'https://www.googleapis.com/auth/drive',
@@ -18,9 +19,9 @@ export default class Login extends Component {
                 'https://www.googleapis.com/auth/drive.metadata',
                 'https://www.googleapis.com/auth/drive.metadata.readonly',
                 'https://www.googleapis.com/auth/drive.photos.readonly',
-               'openid', 'email', 'profile'], 
-            webClientId: '213027420366-prcnlkcm5la35mrdcuc54rjanp5o2u74.apps.googleusercontent.com', // client ID of type WEB for your server (needed to verify user ID and offline access)
-            forceConsentPrompt: true, // [Android] if you want to show the authorization prompt at each login.
+                'openid', 'email', 'profile'],
+            webClientId: '213027420366-prcnlkcm5la35mrdcuc54rjanp5o2u74.apps.googleusercontent.com', 
+            forceConsentPrompt: true, 
         });
     }
 
@@ -34,13 +35,8 @@ export default class Login extends Component {
                 else {
                     AccessToken.getCurrentAccessToken().then((accesTokenData) => {
                         const credential = firebase.auth.FacebookAuthProvider.credential(accesTokenData.accessToken)
-                        firebase.auth().signInWithCredential(credential).then((userId, name, email, pushToken) => {
+                        firebase.auth().signInWithCredential(credential).then((result) => {
                             //Promise was succesful
-                            firebase.database().ref(`users/userId`).set({
-                                username: name,
-                                email: email,
-                                pushToken: pushToken
-                            })
 
                         }, (error) => {
                             //promise was rejected
@@ -53,53 +49,24 @@ export default class Login extends Component {
                 }
             })
     }
-    writeUserData(userId, name, email, pushToken) {
-        firebase.database().ref('users/' + userId).set({
-            username: name,
-            email: email,
-            pushToken: pushToken
-        });
+
+    googleAuth = () => {
+        GoogleSignin.signIn()
+            .then((data) => {
+                // Create a new Firebase credential with the token
+                const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken);
+                // Login with the credential
+                return firebase.auth().signInWithCredential(credential);
+            })
+            .then((user) => {
+           
+                //If we need to retrieve any additional data from the user, it can be done here
+            })
+            .catch((error) => {
+                const { code, message } = error;
+                console.log(error)
+            });
     }
-
-
-    // Not working at the moment, and becoming too much of a timesink, might get back to it later
-   googleAuth = () => {
-    GoogleSignin.signIn()
-    .then((data) => {
-      // Create a new Firebase credential with the token
-      const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken);
-      // Login with the credential
-      return firebase.auth().signInWithCredential(credential);
-    })
-    .then((user) => {
-      // If you need to do anything with the user, do it here
-      // The user will be logged in automatically by the
-      // `onAuthStateChanged` listener we set up in App.js earlier
-    })
-    .catch((error) => {
-      const { code, message } = error;
-      // For details of error codes, see the docs
-      // The message contains the default Firebase string
-      // representation of the error
-    });
-   }
-   
-    // googleAuth = async() => {
-    //         try {
-
-    //           const user = await GoogleSignin.signIn();
-    //           this.setState({user})
-
-    //           // create a new firebase credential with the token
-    //           const googleCredential = firebase.auth.GoogleAuthProvider.credential(user.idToken, user.accessToken)
-    //           // login with credential
-    //           const firebaseUserCredential = await firebase.auth().signInWithCredential(googleCredential);
-
-    //           console.warn(JSON.stringify(firebaseUserCredential.user.toJSON()));
-    //         } catch (e) {
-    //           console.error(e);
-    //         }
-    //       }
 
     render() {
         return (
@@ -124,10 +91,10 @@ export default class Login extends Component {
                     color="#39569c"
                 />
                 <GoogleSigninButton
-                 style={{ width: 192, height: 48 }}
-                 size={GoogleSigninButton.Size.Wide}
-                 color={GoogleSigninButton.Color.Dark}
-                 onPress={this.googleAuth}
+                    style={{ width: 192, height: 48 }}
+                    size={GoogleSigninButton.Size.Wide}
+                    color={GoogleSigninButton.Color.Dark}
+                    onPress={this.googleAuth}
                 />
                 <Text style={{ color: '#d7734a', fontSize: 24, textAlign: 'left', marginTop: '5%', marginLeft: '10%', alignSelf: 'stretch' }}> &#125; </Text>
 
