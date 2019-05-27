@@ -20,7 +20,7 @@ export default class ChatRooms extends Component {
     this.listenForRooms(this.roomsRef);
   }
 
-  //Uses the variable "roomsRef" from the constructor to check the realtime databsde for changes and update accordingly
+  //Uses the variable "roomsRef" from the constructor to check the realtime database for changes and update accordingly
   listenForRooms(roomsRef) {
     roomsRef.on('value', (dataSnapshot) => {
       var roomsFB = [];
@@ -34,6 +34,7 @@ export default class ChatRooms extends Component {
     });
   }
 
+  //logout functionality, proceeds to navigate to "Login"
   handleLogout = () => {
     firebaseApp.auth().signOut()
       .then(() => this.props.navigation.navigate('Login'))

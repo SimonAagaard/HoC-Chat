@@ -8,7 +8,7 @@ export default class Loading extends React.Component {
 
     componentDidMount() {
         SplashScreen.hide();
-        //Specific line for the purpose of this component
+        //Observer for changes to the signed-in user's ID token, includes sign-in, logout and token refresh events 
         firebase.auth().onIdTokenChanged(user => {
             this.props.navigation.navigate(user ? 'ChatRooms' : 'Login')
         })
