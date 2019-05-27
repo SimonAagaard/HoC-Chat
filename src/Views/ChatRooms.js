@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, FlatList, StatusBar, Button } from 'react-native';
 import firebaseApp from '../Components/firebaseConfig';
+import { LoginManager } from 'react-native-fbsdk';
+
 import Icon from 'react-native-vector-icons/Ionicons';
 
 //View to see the available chat rooms
@@ -37,6 +39,7 @@ export default class ChatRooms extends Component {
   //logout functionality, proceeds to navigate to "Login"
   handleLogout = () => {
     firebaseApp.auth().signOut()
+      .then(() => LoginManager.getInstance().logout())
       .then(() => this.props.navigation.navigate('Login'))
       .catch(error => this.setState({ errorMessage: error.message }))
   }
