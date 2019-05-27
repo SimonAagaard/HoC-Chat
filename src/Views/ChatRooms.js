@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, FlatList, StatusBar, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight, TouchableOpacity, FlatList, StatusBar, Button, ImageBackground } from 'react-native';
 import firebaseApp from '../Components/firebaseConfig';
 import { LoginManager } from 'react-native-fbsdk';
 
@@ -76,6 +76,7 @@ export default class ChatRooms extends Component {
 
   render() {
     return (
+      <ImageBackground source={require('../images/team.jpg')} style={{width:undefined, height:undefined,flex:1,alignSelf:'stretch', resizeMode:'cover' , opacity:0.8}} >
       <View style={styles.roomsContainer}>
         <StatusBar barStyle="light-content" />
         <View style={styles.roomsHeader}>
@@ -112,6 +113,7 @@ export default class ChatRooms extends Component {
           />
         </View>
       </View>
+      </ImageBackground>
     );
   }
 }
@@ -146,12 +148,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     marginTop: 30,
-    backgroundColor: '#fff'
+    // backgroundColor: '#fff'
   },
 
   roomLi: {
     flex: 1,
-    backgroundColor: '#eee',
+    // backgroundColor: '#eee',
     borderColor: '#fff',
     borderWidth: 1,
     paddingTop: 14,

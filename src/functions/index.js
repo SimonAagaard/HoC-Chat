@@ -1,5 +1,5 @@
-let functions = require('firebase-functions');
-let admin = require('firebase-admin');
+let functions = require('./node_modules/firebase-functions');
+let admin = require('./node_modules/firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
 
@@ -23,7 +23,7 @@ if (projectCreated) {
 }
 
 function loadUsers() {
-	let dbRef = admin.database().ref('/messages/user');
+	let dbRef = admin.database().ref('/users');
 	let defer = new Promise((resolve, reject) => {
 		dbRef.once('value', (snap) => {
 			let data = snap.val();

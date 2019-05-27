@@ -20,8 +20,8 @@ export default class Login extends Component {
                 'https://www.googleapis.com/auth/drive.metadata.readonly',
                 'https://www.googleapis.com/auth/drive.photos.readonly',
                 'openid', 'email', 'profile'],
-            webClientId: '213027420366-prcnlkcm5la35mrdcuc54rjanp5o2u74.apps.googleusercontent.com', 
-            forceConsentPrompt: true, 
+            webClientId: '213027420366-prcnlkcm5la35mrdcuc54rjanp5o2u74.apps.googleusercontent.com',
+            forceConsentPrompt: true,
         });
     }
 
@@ -49,7 +49,7 @@ export default class Login extends Component {
                 }
             })
     }
-
+    //Function handeling the integration of Google login with firebase
     googleAuth = () => {
         GoogleSignin.signIn()
             .then((data) => {
@@ -59,8 +59,8 @@ export default class Login extends Component {
                 return firebase.auth().signInWithCredential(credential);
             })
             .then((user) => {
-           
                 //If we need to retrieve any additional data from the user, it can be done here
+
             })
             .catch((error) => {
                 const { code, message } = error;
@@ -73,7 +73,7 @@ export default class Login extends Component {
             <View style={styles.container}>
                 <Image
                     style={styles.image}
-                    source={require('../Components/images/Logo.png')} />
+                    source={require('../images/Logo.png')} />
                 <View style={styles.welcome}>
                     <Text style={{ color: '#d8a55a', fontSize: 24 }}>Welcome </Text>
                     <Text style={{ color: '#aa81ac', fontSize: 24 }}>to </Text>

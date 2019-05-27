@@ -9,7 +9,6 @@ export default class FBLoginButton extends Component {
   render() {
     return (
       <View>
-
         <LoginButton
           onLoginFinished={
             LoginManager.logInWithReadPermissions(['public_profile', 'email'])

@@ -22,10 +22,6 @@ class Chat extends Component {
       headerBackTitleStyle: {
         color: '#d7734a'
       },
-      // headerRight: (
-      // <Button title='Send billede' onPress={() => this.selectImage} color='#d7734a' />
-
-      // ),
     }
   };
 
@@ -111,7 +107,7 @@ class Chat extends Component {
     return (
       <View style={{ flex: 1 }}>
         <StatusBar barStyle="light-content" />
-        <Button title='Send picture' onPress={this.selectImage} color='#d7734a' />
+        {/* <Button title='Send picture' onPress={this.selectImage} color='#d7734a' /> */}
         <GiftedChat
           messages={this.state.messages}
           onSend={this.addMessage.bind(this)}
