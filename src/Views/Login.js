@@ -10,7 +10,7 @@ import firebaseApp from '../Components/firebaseConfig';
 export default class Login extends Component {
 
     componentDidMount() {
-        //Need to be called here when the component mounts, for the google signin to work
+        //Need to be called here when the component mounts, for the google sign in to work
         GoogleSignin.configure({
             scopes: [
                 'https://www.googleapis.com/auth/drive',

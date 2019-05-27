@@ -16,7 +16,7 @@ export default class ChatRooms extends Component {
     }
   }
 
-  //whenever this component mounts, the function "listenForRooms" gets called right away
+  //Whenever this component mounts, the function "listenForRooms" gets called right away
   componentDidMount() {
     this.listenForRooms(this.roomsRef);
   }

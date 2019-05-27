@@ -128,7 +128,6 @@ const styles = StyleSheet.create({
     color: 'grey'
   },
   otherUser: {
-// alignItems: 'center',
 color: 'blue',
 alignSelf: 'center',
   }
