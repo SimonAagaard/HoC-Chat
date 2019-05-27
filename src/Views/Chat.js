@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StatusBar, View, StyleSheet, Image, Button, TouchableHighlight } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { StatusBar, View, StyleSheet, Image, Button, TouchableHighlight, Text } from 'react-native';
+import { GiftedChat, Bubble } from 'react-native-gifted-chat';
 import firebaseApp from '../Components/firebaseConfig';
 import ImagePicker from 'react-native-image-picker';
 import Icon from 'react-native-vector-icons';
@@ -12,7 +12,7 @@ class Chat extends Component {
     return {
       title: navigation.state.params.roomName,
       headerStyle: {
-        backgroundColor: '#d7734a'
+        backgroundColor: '#d7734a',        
       },
       headerTitleStyle: {
         color: '#ffffff',
@@ -53,7 +53,6 @@ class Chat extends Component {
           text: child.val().text,
           createdAt: child.val().createdAt,
           room: child.val().room,
-          imagePicked: child.val().imagePicked,
           user: {
             _id: child.val().user._id,
             name: child.val().user.name
@@ -78,6 +77,34 @@ class Chat extends Component {
     })
   }
 
+  //Function to render the name of the message
+  renderName = (props) => {
+    const { user: self } = this.state
+    const { user = {} } = props.currentMessage
+    const { user: pUser = {} } = props.previousMessage
+    const isSameUser = pUser._id === user._id
+    const isSelf = user._id === self._id
+    const shouldNotRenderName = isSameUser
+
+    return shouldNotRenderName ? (
+      <View />
+    ) : (
+        <Text style={[ isSelf ? styles.selfUser : styles.otherUser ]}>
+
+          {user.name}
+        </Text>
+      )
+  }
+
+  renderBubble = (props) => {
+    return (
+      <View>
+        {this.renderName(props)}
+        <Bubble {...props} />
+      </View>
+    )
+  }
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -85,6 +112,7 @@ class Chat extends Component {
         <GiftedChat
           messages={this.state.messages}
           onSend={this.addMessage.bind(this)}
+          renderBubble={this.renderBubble}
           user={{
             _id: this.state.user.uid,
             name: this.state.user.email,
@@ -94,5 +122,16 @@ class Chat extends Component {
     );
   }
 }
+const styles = StyleSheet.create({
+  selfUser: {
+    alignSelf:'center',
+    color: 'grey'
+  },
+  otherUser: {
+// alignItems: 'center',
+color: 'blue',
+alignSelf: 'center',
+  }
+})
 
 export default Chat;

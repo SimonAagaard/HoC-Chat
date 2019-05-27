@@ -65,7 +65,7 @@ export default class ChatRooms extends Component {
 
   render() {
     return (
-      <ImageBackground source={require('../images/team.jpg')} style={{ width: undefined, height: undefined, flex: 1, alignSelf: 'stretch', resizeMode: 'cover', opacity: 0.8 }} >
+      <ImageBackground source={require('../Images/team.jpg')} style={{ width: undefined, height: undefined, flex: 1, alignSelf: 'stretch', resizeMode: 'cover', opacity: 0.8 }} >
         <View style={styles.roomsContainer}>
           <StatusBar barStyle="light-content" />
           <View style={styles.roomsHeader}>

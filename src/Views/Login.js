@@ -73,7 +73,7 @@ export default class Login extends Component {
             <View style={styles.container}>
                 <Image
                     style={styles.image}
-                    source={require('../images/Logo.png')} />
+                    source={require('../Images/Logo.png')} />
                 <View style={styles.welcome}>
                     <Text style={{ color: '#d8a55a', fontSize: 24 }}>Welcome </Text>
                     <Text style={{ color: '#aa81ac', fontSize: 24 }}>to </Text>
