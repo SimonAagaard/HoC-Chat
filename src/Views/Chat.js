@@ -64,31 +64,6 @@ class Chat extends Component {
     });
   }
 
-
-  //Functionality for sending image, causing trouble, commented out for now
-  //   selectImage = (messages=[]) => {
-  //   ImagePicker.showImagePicker((response) => {
-  //     console.log('Response = ', response);
-
-  //     if (response.didCancel) {
-  //       console.log('User cancelled image picker');
-  //     } else if (response.error) {
-  //       console.log('ImagePicker Error: ', response.error);
-  //     } else if (response.customButton) {
-  //       console.log('User tapped custom button: ', response.customButton);
-  //     } else {
-  //       const source = { uri: response.uri };
-
-  //       this.setState({
-  //         imagePicked: source,
-  //       });
-
-  //     }
-  //   });
-  // }
-
-
-
   //Function being called by the onSend button, to add a message to the database
   addMessage(messages = []) {
     var message = messages[0]
@@ -107,7 +82,6 @@ class Chat extends Component {
     return (
       <View style={{ flex: 1 }}>
         <StatusBar barStyle="light-content" />
-        {/* <Button title='Send picture' onPress={this.selectImage} color='#d7734a' /> */}
         <GiftedChat
           messages={this.state.messages}
           onSend={this.addMessage.bind(this)}
@@ -120,6 +94,5 @@ class Chat extends Component {
     );
   }
 }
-
 
 export default Chat;

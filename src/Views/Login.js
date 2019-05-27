@@ -59,7 +59,7 @@ export default class Login extends Component {
                 return firebase.auth().signInWithCredential(credential);
             })
             .then((user) => {
-                //If we need to retrieve any additional data from the user, it can be done here
+                //If the need arises to retrieve any additional data from the user, it can be done here
 
             })
             .catch((error) => {
@@ -79,12 +79,7 @@ export default class Login extends Component {
                     <Text style={{ color: '#aa81ac', fontSize: 24 }}>to </Text>
                     <Text style={{ color: '#6998ad', fontSize: 24, marginBottom: '5%' }}>HoC-Chat!</Text>
                     <Text style={{ color: '#d7734a', fontSize: 24 }}> &#123; </Text>
-
                 </View>
-
-                {/* <LoginButton>
-                    onPress=
-                </LoginButton> */}
                 <Button
                     onPress={this.fbAuth}
                     title="Sign in with Facebook"
@@ -97,7 +92,6 @@ export default class Login extends Component {
                     onPress={this.googleAuth}
                 />
                 <Text style={{ color: '#d7734a', fontSize: 24, textAlign: 'left', marginTop: '5%', marginLeft: '10%', alignSelf: 'stretch' }}> &#125; </Text>
-
             </View>
         );
     }
@@ -108,14 +102,15 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         backgroundColor: '#ffffff'
-
     },
+
     image: {
         width: 200,
         height: 200,
         marginTop: '10%',
         resizeMode: 'stretch'
     },
+    
     welcome: {
         flexDirection: 'row'
     }
