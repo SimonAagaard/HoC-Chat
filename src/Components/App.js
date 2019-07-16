@@ -15,7 +15,7 @@ import Login from '../Views/Login';
 import ChatRooms from '../Views/ChatRooms';
 import Chat from '../Views/Chat';
 
-//Setting up a SwitchNavigator to handle the navigation in the app, easily scaleable if more screens are needed
+//Setting up a StackNavigator to handle the navigation in the app, easily scaleable if more screens are needed
 const rootStack = createStackNavigator(
   {
     Loading: {
